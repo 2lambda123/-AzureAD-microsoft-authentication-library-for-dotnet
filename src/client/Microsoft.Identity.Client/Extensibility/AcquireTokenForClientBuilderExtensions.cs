@@ -9,17 +9,19 @@ namespace Microsoft.Identity.Client.Extensibility {
 ///
 /// </summary>
 public static class AcquireTokenForClientBuilderExtensions {
+
   /// <summary>
-  /// Binds the token to a key in the cache. L2 cache keys contain the key id.
-  /// No cryptographic operations is performed on the token.
+  /// Sets the proof of possession key ID for the client and returns the parameter builder.
   /// </summary>
-  /// <param name="builder"></param>
-  /// <param name="keyId">A key id to which the access token is associated. The
-  /// token will not be retrieved from the cache unless the same key id is
-  /// presented. Can be null.</param> <param name="expectedTokenTypeFromAad">AAD
-  /// issues several types of bound tokens. MSAL checks the token type, which
-  /// needs to match the value set by ESTS. Normal POP tokens have this as
-  /// "pop"</param> <returns>the builder</returns>
+  /// <param name="builder">The parameter builder.</param>
+  /// <param name="keyId">The proof of possession key ID.</param>
+  /// <param name="expectedTokenTypeFromAad">The expected token type from Azure Active Directory (default is "Bearer").</param>
+  /// <exception cref="ArgumentNullException">Thrown when <paramref name="keyId"/> is null or empty.</exception>
+  /// <returns>The parameter builder with the proof of possession key ID set.</returns>
+  /// <remarks>
+  /// This method sets the proof of possession key ID for the client in the parameter builder.
+  /// It validates the use of experimental feature and sets the authentication scheme to an external bound token scheme using the provided key ID and expected token type from Azure Active Directory.
+  /// </remarks>
   [EditorBrowsable(
       EditorBrowsableState
           .Never)] // https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/issues/4789
