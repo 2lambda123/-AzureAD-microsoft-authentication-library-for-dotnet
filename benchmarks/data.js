@@ -1,6 +1,6 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1717063417185,
-  "repoUrl": "https://github.com/AzureAD/microsoft-authentication-library-for-dotnet",
+  "lastUpdate": 1717422427426,
+  "repoUrl": "https://github.com/2lambda123/-AzureAD-microsoft-authentication-library-for-dotnet",
   "entries": {
     "AcquireTokenNoCache": [
       {
@@ -5426,6 +5426,42 @@ window.BENCHMARK_DATA = {
             "value": 330442.3846153846,
             "unit": "ns",
             "range": "± 2807.8558408645063"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "54554557+2lambda123@users.noreply.github.com",
+            "name": "Robert Bongart (MSc MSc MA)",
+            "username": "2lambda123"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0caacb6d49bfc05849d916a2c3f927d033336efb",
+          "message": "Merge pull request #1 from 2lambda123/bogavril/4789\n\nUpdate class and add new extension method in Microsoft.Identity.Client namespace",
+          "timestamp": "2024-06-03T08:39:25-05:00",
+          "tree_id": "a3457015968f5b0df0f6ac06245835bebec450e1",
+          "url": "https://github.com/2lambda123/-AzureAD-microsoft-authentication-library-for-dotnet/commit/0caacb6d49bfc05849d916a2c3f927d033336efb"
+        },
+        "date": 1717422424021,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Microsoft.Identity.Test.Performance.AcquireTokenNoCacheTests.AcquireTokenForClient_TestAsync",
+            "value": 257689.92307692306,
+            "unit": "ns",
+            "range": "± 3656.5427309946404"
+          },
+          {
+            "name": "Microsoft.Identity.Test.Performance.AcquireTokenNoCacheTests.AcquireTokenOnBehalfOf_TestAsync",
+            "value": 353940.4666666667,
+            "unit": "ns",
+            "range": "± 5991.285491286093"
           }
         ]
       }
