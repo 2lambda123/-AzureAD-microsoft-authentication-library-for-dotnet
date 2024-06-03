@@ -12,17 +12,14 @@ namespace Microsoft.Identity.Client.Extensibility {
 /// </summary>
 public static class
     AbstractConfidentialClientAcquireTokenParameterBuilderExtension {
+
   /// <summary>
-  /// Intervenes in the request pipeline, by executing a user provided delegate
-  /// before MSAL makes the token request. The delegate can modify the request
-  /// payload by adding or removing  body parameters and headers. <see
-  /// cref="OnBeforeTokenRequestData"/>
+  /// Sets a handler to be called before a token request is made.
   /// </summary>
-  /// <typeparam name="T"></typeparam>
-  /// <param name="builder">The builder to chain options to</param>
-  /// <param name="onBeforeTokenRequestHandler">An async delegate which gets
-  /// invoked just before MSAL makes a token request</param> <returns>The
-  /// builder to chain other options to.</returns>
+  /// <typeparam name="T">The type of the token parameter builder.</typeparam>
+  /// <param name="builder">The token parameter builder.</param>
+  /// <param name="onBeforeTokenRequestHandler">The asynchronous function to be called before a token request is made.</param>
+  /// <returns>The token parameter builder with the onBeforeTokenRequestHandler set.</returns>
   public static AbstractAcquireTokenParameterBuilder<T> OnBeforeTokenRequest<T>(
       this AbstractAcquireTokenParameterBuilder<T> builder,
       Func<OnBeforeTokenRequestData, Task> onBeforeTokenRequestHandler)
@@ -34,17 +31,18 @@ public static class
   }
 
   /// <summary>
-  /// Binds the token to a key in the cache.No cryptographic operations is
-  /// performed on the token.
+  /// Adds a proof of possession key identifier to the authentication parameters and returns the modified builder.
   /// </summary>
-  /// <typeparam name="T"></typeparam>
-  /// <param name="builder">The builder to chain options to</param>
-  /// <param name="keyId">A key id to which the access token is associated. The
-  /// token will not be retrieved from the cache unless the same key id is
-  /// presented. Can be null.</param> <param name="expectedTokenTypeFromAad">AAD
-  /// issues several types of bound tokens. MSAL checks the token type, which
-  /// needs to match the value set by ESTS. Normal POP tokens have this as
-  /// "pop"</param> <returns>the builder</returns>
+  /// <typeparam name="T">The type of the builder.</typeparam>
+  /// <param name="builder">The original builder to be modified.</param>
+  /// <param name="keyId">The proof of possession key identifier to be added.</param>
+  /// <param name="expectedTokenTypeFromAad">The expected token type from Azure Active Directory (default is "Bearer").</param>
+  /// <returns>The modified builder with the added proof of possession key identifier.</returns>
+  /// <exception cref="ArgumentNullException">Thrown when <paramref name="keyId"/> is null or empty.</exception>
+  /// <remarks>
+  /// This method adds a proof of possession key identifier to the authentication parameters of the builder.
+  /// It also sets the authentication scheme to an external bound token scheme using the provided key identifier and expected token type from Azure Active Directory.
+  /// </remarks>
   public static AbstractAcquireTokenParameterBuilder<T>
   WithProofOfPosessionKeyId<T>(
       this AbstractAcquireTokenParameterBuilder<T> builder, string keyId,
