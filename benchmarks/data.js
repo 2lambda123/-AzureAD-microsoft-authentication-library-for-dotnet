@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1717422431512,
+  "lastUpdate": 1717422433490,
   "repoUrl": "https://github.com/2lambda123/-AzureAD-microsoft-authentication-library-for-dotnet",
   "entries": {
     "AcquireTokenNoCache": [
@@ -27044,6 +27044,66 @@ window.BENCHMARK_DATA = {
             "value": 146432.59793814432,
             "unit": "ns",
             "range": "± 16990.79671019223"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "54554557+2lambda123@users.noreply.github.com",
+            "name": "Robert Bongart (MSc MSc MA)",
+            "username": "2lambda123"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "0caacb6d49bfc05849d916a2c3f927d033336efb",
+          "message": "Merge pull request #1 from 2lambda123/bogavril/4789\n\nUpdate class and add new extension method in Microsoft.Identity.Client namespace",
+          "timestamp": "2024-06-03T08:39:25-05:00",
+          "tree_id": "a3457015968f5b0df0f6ac06245835bebec450e1",
+          "url": "https://github.com/2lambda123/-AzureAD-microsoft-authentication-library-for-dotnet/commit/0caacb6d49bfc05849d916a2c3f927d033336efb"
+        },
+        "date": 1717422433022,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "Microsoft.Identity.Test.Performance.TokenCacheTests.AcquireTokenSilent_TestAsync(CacheSize: (1, 10))",
+            "value": 18230.31170247396,
+            "unit": "ns",
+            "range": "± 41.68422275805822"
+          },
+          {
+            "name": "Microsoft.Identity.Test.Performance.TokenCacheTests.AcquireTokenSilent_TestAsync(CacheSize: (10000, 10))",
+            "value": 28848.910101754325,
+            "unit": "ns",
+            "range": "± 78.99408237843444"
+          },
+          {
+            "name": "Microsoft.Identity.Test.Performance.TokenCacheTests.GetAccountAsync_TestAsync(CacheSize: (1, 10))",
+            "value": 9414.09765272874,
+            "unit": "ns",
+            "range": "± 33.375509607563046"
+          },
+          {
+            "name": "Microsoft.Identity.Test.Performance.TokenCacheTests.GetAccountAsync_TestAsync(CacheSize: (10000, 10))",
+            "value": 19720.757502964563,
+            "unit": "ns",
+            "range": "± 115.17719367369382"
+          },
+          {
+            "name": "Microsoft.Identity.Test.Performance.TokenCacheTests.RemoveAccountAsync_TestAsync(CacheSize: (1, 10))",
+            "value": 46222.53846153846,
+            "unit": "ns",
+            "range": "± 435.44242164045363"
+          },
+          {
+            "name": "Microsoft.Identity.Test.Performance.TokenCacheTests.RemoveAccountAsync_TestAsync(CacheSize: (10000, 10))",
+            "value": 132885.59793814432,
+            "unit": "ns",
+            "range": "± 17793.606730285996"
           }
         ]
       }
