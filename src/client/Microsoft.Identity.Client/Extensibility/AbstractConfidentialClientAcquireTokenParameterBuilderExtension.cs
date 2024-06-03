@@ -8,52 +8,52 @@ using System.Threading.Tasks;
 namespace Microsoft.Identity.Client.Extensibility
 {
 
+/// <summary>
+/// Extensions for all AcquireToken methods
+/// </summary>
+public static class AbstractConfidentialClientAcquireTokenParameterBuilderExtension
+{
     /// <summary>
-    /// Extensions for all AcquireToken methods
+    /// Intervenes in the request pipeline, by executing a user provided delegate before MSAL makes the token request.
+    /// The delegate can modify the request payload by adding or removing  body parameters and headers. <see cref="OnBeforeTokenRequestData"/>
     /// </summary>
-    public static class AbstractConfidentialClientAcquireTokenParameterBuilderExtension
+    /// <typeparam name="T"></typeparam>
+    /// <param name="builder">The builder to chain options to</param>
+    /// <param name="onBeforeTokenRequestHandler">An async delegate which gets invoked just before MSAL makes a token request</param>
+    /// <returns>The builder to chain other options to.</returns>
+    public static AbstractAcquireTokenParameterBuilder<T> OnBeforeTokenRequest<T>(
+        this AbstractAcquireTokenParameterBuilder<T> builder,
+        Func<OnBeforeTokenRequestData, Task> onBeforeTokenRequestHandler)
+    where T : AbstractAcquireTokenParameterBuilder<T>
     {
-        /// <summary>
-        /// Intervenes in the request pipeline, by executing a user provided delegate before MSAL makes the token request. 
-        /// The delegate can modify the request payload by adding or removing  body parameters and headers. <see cref="OnBeforeTokenRequestData"/>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="builder">The builder to chain options to</param>
-        /// <param name="onBeforeTokenRequestHandler">An async delegate which gets invoked just before MSAL makes a token request</param>
-        /// <returns>The builder to chain other options to.</returns>
-        public static AbstractAcquireTokenParameterBuilder<T> OnBeforeTokenRequest<T>(
-            this AbstractAcquireTokenParameterBuilder<T> builder, 
-            Func<OnBeforeTokenRequestData, Task> onBeforeTokenRequestHandler) 
-            where T : AbstractAcquireTokenParameterBuilder<T>
-        {            
-            builder.CommonParameters.OnBeforeTokenRequestHandler = onBeforeTokenRequestHandler;
+        builder.CommonParameters.OnBeforeTokenRequestHandler = onBeforeTokenRequestHandler;
 
-            return builder;
-        }
+        return builder;
+    }
 
-        /// <summary>
-        /// Binds the token to a key in the cache.No cryptographic operations is performed on the token.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="builder">The builder to chain options to</param>
-        /// <param name="keyId">A key id to which the access token is associated. The token will not be retrieved from the cache unless the same key id is presented. Can be null.</param>
-        /// <param name="expectedTokenTypeFromAad">AAD issues several types of bound tokens. MSAL checks the token type, which needs to match the value set by ESTS. Normal POP tokens have this as "pop"</param>
-        /// <returns>the builder</returns>
-        public static AbstractAcquireTokenParameterBuilder<T> WithProofOfPosessionKeyId<T>(
-            this AbstractAcquireTokenParameterBuilder<T> builder,
-            string keyId,
-            string expectedTokenTypeFromAad = "Bearer")
-            where T : AbstractAcquireTokenParameterBuilder<T>
+    /// <summary>
+    /// Binds the token to a key in the cache.No cryptographic operations is performed on the token.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="builder">The builder to chain options to</param>
+    /// <param name="keyId">A key id to which the access token is associated. The token will not be retrieved from the cache unless the same key id is presented. Can be null.</param>
+    /// <param name="expectedTokenTypeFromAad">AAD issues several types of bound tokens. MSAL checks the token type, which needs to match the value set by ESTS. Normal POP tokens have this as "pop"</param>
+    /// <returns>the builder</returns>
+    public static AbstractAcquireTokenParameterBuilder<T> WithProofOfPosessionKeyId<T>(
+        this AbstractAcquireTokenParameterBuilder<T> builder,
+        string keyId,
+        string expectedTokenTypeFromAad = "Bearer")
+    where T : AbstractAcquireTokenParameterBuilder<T>
+    {
+        if (string.IsNullOrEmpty(keyId))
         {
-            if (string.IsNullOrEmpty(keyId))
-            {
-                throw new ArgumentNullException(nameof(keyId));
-            }
-
-            builder.ValidateUseOfExperimentalFeature();
-            builder.CommonParameters.AuthenticationScheme = new ExternalBoundTokenScheme(keyId, expectedTokenTypeFromAad);
-
-            return builder;
+            throw new ArgumentNullException(nameof(keyId));
         }
-    }   
+
+        builder.ValidateUseOfExperimentalFeature();
+        builder.CommonParameters.AuthenticationScheme = new ExternalBoundTokenScheme(keyId, expectedTokenTypeFromAad);
+
+        return builder;
+    }
+}
 }
